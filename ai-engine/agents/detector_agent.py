@@ -2,9 +2,10 @@ from google import genai
 from config import GEMINI_API_KEY
 from PIL import Image
 
-class ClassifierAgent:
 
-    def classify(self, image_path):
+class DetectorAgent:
+
+    def detect(self, image_path):
 
         client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -15,9 +16,7 @@ class ClassifierAgent:
             contents=[
                 image,
                 """
-                You are an astronomy image classifier.
-
-                Analyze the image and determine the SINGLE MOST DOMINANT object.
+                Detect ALL celestial objects visible in this image.
 
                 Allowed categories:
 
@@ -31,9 +30,12 @@ class ClassifierAgent:
                 Supernova Remnant
                 Black Hole
 
-                Return ONLY ONE category.
+                Return ONLY a comma-separated list.
 
                 Example:
+                Galaxy, Black Hole
+
+                If only one object exists:
                 Galaxy
 
                 Do not explain anything.
@@ -41,4 +43,6 @@ class ClassifierAgent:
             ]
         )
 
-        return response.text.strip()
+        objects = [obj.strip() for obj in response.text.split(",")]
+
+        return objects
