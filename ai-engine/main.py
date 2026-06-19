@@ -1,42 +1,21 @@
-from agents.detector_agent import DetectorAgent
-from agents.classifier_agent import ClassifierAgent
-from agents.information_agent import InformationAgent
-from agents.recommendation_agent import RecommendationAgent
+from agents.analyzer_agent import AnalyzerAgent
 from agents.report_agent import ReportAgent
 
 
-detector = DetectorAgent()
-classifier = ClassifierAgent()
-information = InformationAgent()
-recommendation = RecommendationAgent()
-report = ReportAgent()
+analyzer = AnalyzerAgent()
+report_agent = ReportAgent()
 
 
-# Test image
-image_path = "datasets/planets/jupiter1.jpg"
+image_path = input(
+    "Enter image path: "
+)
 
+result = analyzer.analyze(
+    image_path
+)
 
-# Detect all objects
-objects = detector.detect(image_path)
+report = report_agent.generate(
+    result
+)
 
-print("Detected Objects:", objects)
-
-
-# Main category
-category = classifier.classify(image_path)
-
-print("Primary Category:", category)
-
-
-# Detailed object info
-info = information.get_info(image_path)
-
-
-# Similar recommendations
-recs = recommendation.recommend(image_path)
-
-
-# Final report
-result = report.generate(info, recs)
-
-print(result)
+print(report)

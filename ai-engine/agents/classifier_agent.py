@@ -1,44 +1,5 @@
-from google import genai
-from config import GEMINI_API_KEY
-from PIL import Image
-
 class ClassifierAgent:
 
-    def classify(self, image_path):
+    def classify(self, analysis_data):
 
-        client = genai.Client(api_key=GEMINI_API_KEY)
-
-        image = Image.open(image_path)
-
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=[
-                image,
-                """
-                You are an astronomy image classifier.
-
-                Analyze the image and determine the SINGLE MOST DOMINANT object.
-
-                Allowed categories:
-
-                Galaxy
-                Nebula
-                Planet
-                Moon
-                Asteroid
-                Comet
-                Star Cluster
-                Supernova Remnant
-                Black Hole
-
-                Return ONLY ONE category.
-
-                Example:
-                Galaxy
-
-                Do not explain anything.
-                """
-            ]
-        )
-
-        return response.text.strip()
+        return analysis_data["primary_category"]
