@@ -19,7 +19,6 @@ class ImageAnalysisService:
             result
         )
 
-        return {
-            "analysis": result,
-            "report": report
-        }
+        result["report"] = report
+
+        return result
