@@ -1,5 +1,5 @@
 const { getObjectDetails } = require("../services/geminiService");
-
+const imageMap = require("../utils/imageMap");
 exports.getObjectInfo = async (req, res) => {
   try {
     const aiResponse = await getObjectDetails(req.params.name);
@@ -13,7 +13,10 @@ exports.getObjectInfo = async (req, res) => {
 
     res.json({
       success: true,
-      data: parsed,
+      data: {
+        ...parsed,
+        imageUrl: imageMap[parsed.name] || "/images/default.jpg"
+      },
     });
   } catch (error) {
     console.error(error);
