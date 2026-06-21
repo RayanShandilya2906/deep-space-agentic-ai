@@ -12,6 +12,10 @@ const cleanupOldRecords =
 require("./services/cleanupService");
 const analysisRoutes = require("./routes/analysisRoutes");
 const objectRoutes = require("./routes/objectRoutes");
+const compareRoutes =
+require("./routes/compareRoutes");
+const timelineRoutes =
+require("./routes/timelineRoutes");
 const historyRoutes =
 require("./routes/historyRoutes");
 const statsRoutes =
@@ -31,11 +35,13 @@ app.use(
 );
 app.use("/api", analysisRoutes);
 app.use("/api/object", objectRoutes);
+app.use("/api/compare", compareRoutes);
 app.use("/api/history", historyRoutes);
 app.use(
   "/api/stats",
   statsRoutes
 );
+app.use("/api/timeline", timelineRoutes);
 
 app.get("/", (req, res) => {
   res.send("Deep Space Agent Backend Running");

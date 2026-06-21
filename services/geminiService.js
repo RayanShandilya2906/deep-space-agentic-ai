@@ -35,7 +35,16 @@ Return ONLY valid JSON:
   "name": "",
   "type": "",
   "summary": "",
-  "recommendations": ["", "", ""]
+  "interesting_facts": [
+    "",
+    "",
+    ""
+  ],
+  "recommendations": [
+    "",
+    "",
+    ""
+  ]
 }
 
 Rules:
@@ -65,10 +74,19 @@ Provide information about "${objectName}".
 Return ONLY valid JSON:
 
 {
-  "name": "",
-  "type": "",
-  "summary": "",
-  "recommendations": ["", "", ""]
+  "name":"",
+  "type":"",
+  "summary":"",
+  "interesting_facts":[
+    "",
+    "",
+    ""
+  ],
+  "recommendations":[
+    "",
+    "",
+    ""
+  ]
 }
 
 Rules:
@@ -81,7 +99,93 @@ Rules:
   return result.response.text();
 }
 
+async function compareObjects(
+  objectA,
+  objectB
+) {
+
+  const model =
+    genAI.getGenerativeModel({
+      model: "gemini-2.5-flash"
+    });
+
+  const result =
+    await model.generateContent(`
+
+Compare ${objectA} and ${objectB}.
+
+Return ONLY valid JSON:
+
+{
+  "objectA":"",
+  "objectB":"",
+  "similarities":[
+    "",
+    "",
+    ""
+  ],
+  "differences":[
+    "",
+    "",
+    ""
+  ]
+}
+
+
+Rules:
+- Return valid JSON only.
+- No markdown.
+- Summary under 50 words.
+- Exactly 3 interesting facts.
+- Exactly 3 related celestial objects.
+
+`);
+
+  return result.response.text();
+
+}
+
+async function getTimeline(objectName) {
+
+  const model =
+    genAI.getGenerativeModel({
+      model: "gemini-2.5-flash"
+    });
+
+  const result =
+    await model.generateContent(`
+
+You are an astronomy historian.
+
+Provide a space exploration timeline
+for ${objectName}.
+
+Return ONLY valid JSON:
+
+{
+  "object":"",
+  "timeline":[
+    {
+      "year":"",
+      "event":""
+    }
+  ]
+}
+
+Rules:
+- JSON only.
+- 5 major events.
+- Chronological order.
+- No markdown.
+
+`);
+
+  return result.response.text();
+}
+
 module.exports = {
   analyzeSpaceImage,
   getObjectDetails,
+  compareObjects,
+  getTimeline
 };

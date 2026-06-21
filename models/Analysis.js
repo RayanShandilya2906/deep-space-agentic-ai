@@ -6,6 +6,7 @@ const analysisSchema = new mongoose.Schema({
   summary: String,
   recommendations: [String],
   imagePath: String,
+  interestingFacts: [String],
   createdAt: {
     type: Date,
     default: Date.now
