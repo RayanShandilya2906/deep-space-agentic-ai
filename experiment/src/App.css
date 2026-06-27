@@ -1,0 +1,702 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+/* ===================== */
+/* HUD */
+/* ===================== */
+
+.hud {
+  position: absolute;
+  z-index: 40;
+  width: 550px;
+  height: 550px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+}
+
+.hud-visible {
+  opacity: 1;
+}
+
+.hud-hidden {
+  opacity: 0;
+}
+
+.corner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+}
+
+.tl {
+  top: 0;
+  left: 0;
+  border-top: 3px solid cyan;
+  border-left: 3px solid cyan;
+}
+
+.tr {
+  top: 0;
+  right: 0;
+  border-top: 3px solid cyan;
+  border-right: 3px solid cyan;
+}
+
+.bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid cyan;
+  border-left: 3px solid cyan;
+}
+
+.br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 3px solid cyan;
+  border-right: 3px solid cyan;
+}
+
+  .scanner {
+    position: absolute;
+    width: 100%;
+    height: 120px;
+    opacity: 0;
+    animation:
+      scannerAppear 1s ease forwards,
+      scan 4s linear forwards;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(0,255,255,1),
+      rgba(0,255,255,.35),
+      rgba(0,255,255,.15),
+      rgba(0,255,255,0)
+    );
+  }
+
+  @keyframes scannerAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scan {
+    from { top: 0; }
+    to { top: 480px; }
+  }
+
+/* ===================== */
+/* Intro Logo */
+/* ===================== */
+
+.logo {
+  position: absolute;
+  z-index: 50;
+  top: 50%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+
+  color: cyan;
+
+  font-size: 6rem;
+  font-family: "Jersey 10", sans-serif;
+  letter-spacing: 15px;
+
+  text-shadow:
+    0 0 10px cyan,
+    0 0 25px #0088ff,
+    0 0 50px cyan;
+
+  animation: astraReveal 1s ease forwards;
+}
+
+@keyframes astraReveal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    filter: blur(0);
+  }
+}
+
+/* ===================== */
+/* TOP LEFT LOGO */
+/* ===================== */
+
+.topBar {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  z-index: 100;
+}
+
+.topLogo {
+  width: 20px;
+  height: 20px;
+}
+
+.topTitle {
+  color: white;
+
+  font-size: 1.7rem;
+  font-family: "Jersey 10", sans-serif;
+  letter-spacing: 3px;
+
+  text-shadow: 0 0 12px cyan;
+}
+
+/* ===================== */
+/* Upload Section */
+/* ===================== */
+
+.uploadSection {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 100;
+
+  animation: panelFade 1.2s ease;
+
+  color: white;
+}
+
+.uploadSection h1 {
+  font-size: 3rem;
+  margin-bottom: 45px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  font-family: "Jersey 10", sans-serif;
+
+  text-align: center;
+
+  text-shadow: 0 0 15px cyan;
+}
+
+.uploadBox {
+  width: 760px;
+  height: 430px;
+
+  border: 2px dashed rgba(0,255,255,.45);
+  border-radius: 24px;
+
+  background: rgba(8,18,30,.55);
+
+  backdrop-filter: blur(20px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: -10px 0 0 0;
+
+  transition: .3s;
+}
+
+.uploadBox:hover {
+  border-color: cyan;
+
+  box-shadow:
+    0 0 20px rgba(0,255,255,.25),
+    0 0 45px rgba(0,255,255,.12);
+
+  transform: scale(1.015);
+}
+
+.uploadImage {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.uploadBox h2 {
+  font-size: 1.7rem;
+  margin: 0;
+}
+
+.uploadBox p {
+  opacity: .8;
+  margin: 0;
+}
+
+.uploadBox small {
+  opacity: .55;
+  font-size: .95rem;
+}
+
+.uploadBox input {
+  margin-top: 20px;
+  color: white;
+}
+
+.uploadBox button {
+  margin-top: 20px;
+
+  padding: 14px 40px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: cyan;
+  color: black;
+
+  font-size: 1rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.uploadBox button:hover {
+  transform: scale(1.08);
+
+  background: white;
+
+  box-shadow:
+    0 0 20px cyan,
+    0 0 40px cyan;
+}
+
+@keyframes panelFade {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+LOADING
+=========================== */
+
+.loadingLogo{
+
+position:absolute;
+
+top:30px;
+
+left:35px;
+
+font-family:"Jersey 10";
+
+font-size:26px;
+
+color:white;
+
+letter-spacing:2px;
+
+}
+
+.loadingPage {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  z-index: 10;
+}
+
+.scanText{
+
+font-size:56px;
+
+font-family:"Jersey 10";
+
+color:white;
+
+letter-spacing:3px;
+
+z-index:2;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+opacity:.3;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:.3;
+
+}
+
+}
+
+.scanCircle{
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+    border:2px solid cyan;
+
+    animation:loadingPulse 2s infinite;
+
+    opacity:.4;
+}
+
+@keyframes loadingPulse{
+    0%{
+        transform:scale(.5);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(2);
+        opacity:0;
+    }
+}
+
+/* ===========================
+ANALYSIS
+=========================== */
+
+/* ===========================
+ANALYSIS
+=========================== */
+
+.analysisPage {
+    position: relative;
+
+    min-height: 100vh;
+
+    padding: 90px 60px 40px;
+
+    color: white;
+
+    z-index: 5;
+}
+
+.analysisLogo{
+
+font-family:"Jersey 10";
+font-size:24px;
+
+margin-bottom:18px;
+
+}
+
+.planetCard {
+
+  background: rgba(7, 21, 54, 0.75);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(0,255,255,.15);
+
+}
+
+.planetModel{
+  width:220px;
+  height:220px;
+
+  flex-shrink:0;
+}
+
+@keyframes planetSpin{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+.planetHeader{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.planetHeader h1{
+
+font-size:40px;
+
+margin:0;
+
+font-family:"Jersey 10";
+
+}
+
+.planetHeader span{
+
+background:#7426ff;
+
+padding:5px 12px;
+
+border-radius:20px;
+
+font-size:12px;
+
+}
+
+.planetCard p{
+
+margin-top:6px;
+
+line-height:1.45;
+
+font-size:15px;
+
+opacity:.85;
+
+max-width:900px;
+
+}
+
+.analysisPage h2{
+
+margin-top:22px;
+
+margin-bottom:12px;
+
+font-size:28px;
+
+font-family:"Jersey 10";
+
+}
+
+.factsGrid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:18px;
+
+}
+
+.factCard{
+
+  background: rgba(25,25,25,.55);
+
+  backdrop-filter: blur(12px);
+
+}
+
+.factCard:hover{
+
+background:#333;
+
+transform:translateY(-5px);
+
+}
+
+.factCard h3{
+
+margin:0 0 10px;
+
+font-size:22px;
+
+color:#53d7ff;
+
+font-family:"Jersey 10";
+
+}
+
+.factCard p{
+
+font-size:14px;
+
+line-height:1.4;
+
+opacity:.8;
+
+}
+
+.relatedRow{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:18px;
+
+margin-top:5px;
+
+}
+
+.relatedCard{
+
+  background: rgba(35,35,35,.55);
+
+  backdrop-filter: blur(12px);
+
+}
+
+.relatedCard:hover{
+
+background:#373737;
+
+transform:translateY(-4px);
+
+}
+
+.relatedCard img{
+
+width:42px;
+
+height:42px;
+
+object-fit:contain;
+
+}
+
+.relatedCard span{
+
+font-size:16px;
+
+font-weight:600;
+
+}
+
+/* background stars */
+
+
+.stars{
+
+position:absolute;
+
+inset:0;
+
+background:
+radial-gradient(circle at 10% 20%, white 1px, transparent 2px),
+radial-gradient(circle at 35% 65%, white 2px, transparent 3px),
+radial-gradient(circle at 80% 30%, white 1px, transparent 2px),
+radial-gradient(circle at 60% 80%, white 2px, transparent 3px),
+radial-gradient(circle at 90% 10%, white 1px, transparent 2px);
+
+background-size:350px 350px;
+
+opacity:.7;
+
+animation:starMove 80s linear infinite;
+
+pointer-events:none;
+
+}
+
+@keyframes starMove{
+
+from{
+
+transform:translateY(0);
+
+}
+
+to{
+
+transform:translateY(-250px);
+
+}
+
+}
+
+/* ===========================
+NAVBAR
+=========================== */
+
+.navbar{
+
+position:fixed;
+
+top:22px;
+left:30px;
+
+z-index:1000;
+
+}
+
+.navbarLogo{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+text-decoration:none;
+
+}
+
+.navbarImage{
+
+width:50px;
+height:50px;
+
+object-fit:contain;
+
+}
+
+.navbarLogo span{
+
+font-family:"Jersey 10";
+
+font-size:30px;
+
+letter-spacing:2px;
+
+color:white;
+
+text-shadow:
+0 0 8px cyan,
+0 0 18px cyan;
+
+transition:.3s;
+
+}
+
+.navbarLogo:hover span{
+
+color:cyan;
+
+}
