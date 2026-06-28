@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+
+
+.bootSequence{
+    position:absolute;
+    bottom:8%;
+    left:50%;
+    transform:translateX(-50%);
+    width:600px;
+    font-family:"Jersey 10", sans-serif;
+    font-size:34px;
+    color:#60FFFA;
+    letter-spacing:2px;
+    text-align:left;
+    z-index:20;
+}
+
+.line{
+    overflow:hidden;
+    white-space:nowrap;
+    border-right:2px solid #60FFFA;
+    width:0;
+}
+
+.line1{
+    animation:typing 1.8s steps(25,end) forwards;
+}
+
+.line2{
+    animation:typing 1.8s steps(25,end) forwards;
+    animation-delay:2s;
+}
+
+.line3{
+    animation:typing 2.2s steps(35,end) forwards;
+    animation-delay:4.2s;
+}
+
+.line4{
+    animation:typing 1.5s steps(20,end) forwards;
+    animation-delay:6.8s;
+}
+
+@keyframes typing{
+    from{
+        width:0;
+    }
+    to{
+        width:100%;
+    }
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+}
+to{
+opacity:1;
+}
+}
+
+.hideTitle {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.cursor{
+    animation:blink 0.8s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}

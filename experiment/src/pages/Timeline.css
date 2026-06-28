@@ -1,0 +1,75 @@
+@import "./Analysis.css";
+
+.timelineTrack {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: #1597ff;
+  z-index: 0;
+}
+
+.timelineItem {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: calc(50% + 40px);
+  position: relative;
+  margin-bottom: 36px;
+  z-index: 1;
+}
+
+.timelineRight {
+  justify-content: flex-start;
+  padding-right: 0;
+  padding-left: calc(50% + 40px);
+}
+
+.timelineDot {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #1597ff;
+  border-radius: 50%;
+  border: 2px solid black;
+  z-index: 2;
+}
+
+.timelineCard {
+  background: #262626;
+  border-radius: 12px;
+  padding: 16px 20px;
+  width: 100%;
+  max-width: 380px;
+  transition: 0.25s;
+}
+
+.timelineCard:hover {
+  transform: translateY(-4px);
+}
+
+.timelineYear {
+  margin: 0 0 8px;
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 700;
+  color: #58c8ff;
+}
+
+.timelineEvent {
+  margin: 0;
+  font-family: "Montserrat";
+  font-size: 14px;
+  line-height: 1.4;
+  color: white;
+}

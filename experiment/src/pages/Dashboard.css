@@ -1,0 +1,59 @@
+@import "./Analysis.css";
+@import "./History.css";
+
+.chartCard {
+  background: linear-gradient(135deg, #0a1628 0%, #1A1D55 50%, #250B65 100%);
+  border-radius: 15px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(21, 151, 255, 0.3);
+  box-shadow: 0 0 40px rgba(21, 151, 255, 0.3);
+}
+
+.dashboardScroll {
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 14px;                              /* ✅ rounded rect */
+  background: rgba(10, 22, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(21, 151, 255, 0.25);
+  box-shadow: 0 0 30px rgba(21, 151, 255, 0.15);
+  padding: 16px;
+  margin-bottom: 100px;                              /* ✅ space so it doesn't touch edge */
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(21, 151, 255, 0.5) transparent;
+}
+
+.dashboardScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboardScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboardScroll::-webkit-scrollbar-thumb {
+  background: rgba(21, 151, 255, 0.5);
+  border-radius: 4px;
+}
+
+.dashboardStats .factCard {
+  height: 90px;
+  padding: 16px 20px;
+}
+
+.dashboardStats .factCard h3 {
+  color: #58c8ff;
+  font-family: "Montserrat";
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dashboardStats .factCard p {
+  margin-top: 6px;
+  font-size: 13px;
+  font-family: "Montserrat";
+  color: white;
+}

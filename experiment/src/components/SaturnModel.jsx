@@ -2,8 +2,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 
-function Mars() {
-  const { scene } = useGLTF("/mars.glb");
+function Saturn() {
+  const { scene } = useGLTF("/Saturn.glb");
   const ref = useRef();
 
   useFrame(() => {
@@ -16,13 +16,13 @@ function Mars() {
     <primitive
   ref={ref}
   object={scene}
-  scale={0.4}
+  scale={0.3}
   position={[0, 0, 0]}
 />
   );
 }
 
-export default function MarsModel() {
+export default function SaturnModel() {
   return (
     <Canvas
       style={{
@@ -36,7 +36,7 @@ export default function MarsModel() {
     >
       <ambientLight intensity={1.2} />
       <directionalLight position={[3, 2, 3]} intensity={2} />
-      <Mars />
+      <Saturn />
     </Canvas>
   );
 }

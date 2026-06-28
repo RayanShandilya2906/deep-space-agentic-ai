@@ -2,8 +2,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 
-function Mars() {
-  const { scene } = useGLTF("/mars.glb");
+function Phobos() {
+  const { scene } = useGLTF("/Phobos.glb");
   const ref = useRef();
 
   useFrame(() => {
@@ -22,7 +22,7 @@ function Mars() {
   );
 }
 
-export default function MarsModel() {
+export default function PhobosModel() {
   return (
     <Canvas
       style={{
@@ -36,7 +36,7 @@ export default function MarsModel() {
     >
       <ambientLight intensity={1.2} />
       <directionalLight position={[3, 2, 3]} intensity={2} />
-      <Mars />
+      <Phobos />
     </Canvas>
   );
 }

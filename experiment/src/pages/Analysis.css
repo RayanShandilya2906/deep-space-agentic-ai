@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:wght@400;500;600;700&family=Kalnia:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+.analysisPage{
+    min-height:100vh;
+    height: auto;
+    padding-bottom: 20px;
+    background:black;
+    color:white;
+    position:relative;
+    overflow-x:hidden;
+    padding-top:10px;
+    isolation: isolate;
+    overflow-x: hidden;
+    overflow-y: auto; 
+}
+
+.analysisPage>*:not(canvas){
+    position:relative;
+    z-index:2;
+}
+
+.analysisContainer{
+    width: 88%;
+    max-width:1300px;
+    margin:0 auto;
+    padding-bottom: 80px;
+}
+
+.heroCard{
+    width:100%;
+    height:150px;
+    margin-top:20px;
+    margin-bottom: 20px;
+    background:#181C4F;
+    border:2px solid #1597ff;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    padding:0 28px;
+    box-sizing:border-box;
+    box-shadow:
+    0 0 30px rgba(21, 151, 255, 0.3),
+    0 0 60px rgba(104, 32, 214, 0.2);
+}
+
+.heroPlanet{
+    width:120px;
+    height:120px;
+    flex-shrink:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-right:35px;
+}
+
+.heroContent{
+    flex:1;
+}
+
+.titleRow{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.titleRow h1{
+    margin:0;
+    font-family:"Kalnia",serif;
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:0;
+    color:white;
+}
+
+.planetBadge{
+    background:#6820d6;
+    padding:4px 14px;
+    border-radius:8px;
+    font-family:"Montserrat";
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.6px;
+}
+
+.planetDescription{
+    margin-top:13px;
+    width:1100px;
+    font-family:"Montserrat";
+    font-size:15px;
+    font-weight:500;
+    line-height:1.35;
+    color:white;
+}
+
+.factsSection h2,
+.relatedSection h2{
+    font-family:"Jersey 10";
+    font-size:34px;
+    font-weight:400;
+    letter-spacing:2px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+.factsGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+    margin-bottom:20px;
+}
+
+.factCard {
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(135deg, #0a1628 0%, #1A1D55 50%, #250B65 100%);
+  border-radius: 15px;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  transition: .25s;
+  border: 1px solid rgba(21, 151, 255, 0.3); /* ✅ subtle always-on border */
+  box-shadow: 0 0 40px rgba(21, 151, 255, 0.3); /* ✅ subtle always-on glow */
+}
+
+.factCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(21, 151, 255, 0.5);
+  background: linear-gradient(135deg, #0d1f3c 0%, #1A1D55 50%, #603BD0 100%);
+  box-shadow:
+    0 0 15px rgba(21, 151, 255, 0.3),
+    0 0 35px rgba(104, 32, 214, 0.2),
+    0 0 60px rgba(21, 151, 255, 0.1);
+}
+
+.factCard h3{
+    margin:0;
+    color:#58c8ff;
+    font-family:"Montserrat";
+    font-size:20px;
+    font-weight:700;
+}
+
+.factCard p{
+    margin-top:15px;
+    font-family:"Montserrat";
+    font-size:15px;
+    line-height:1.28;
+    color:white;
+}
+
+.relatedGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.relatedCard {
+  width: 100%;
+  height: 65px;
+  background: linear-gradient(135deg, #0a1628 0%, #1A1D55 50%, #250B65 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  transition: .25s;
+  border: 1px solid rgba(21, 151, 255, 0.3); /* ✅ subtle always-on border */
+  box-shadow: 0 0 40px rgba(21, 151, 255, 0.3);
+}
+
+.relatedCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(21, 151, 255, 0.5);
+  background: linear-gradient(135deg, #0d1f3c 0%, #1A1D55 50%, #603BD0 100%);
+  box-shadow:
+    0 0 15px rgba(21, 151, 255, 0.3),
+    0 0 35px rgba(104, 32, 214, 0.2);
+}
+
+.relatedCard img{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+}
+
+.relatedCard span{
+    font-family:"Montserrat";
+    font-size:15px;
+    font-weight:700;
+    color:white;
+}
+
+
+

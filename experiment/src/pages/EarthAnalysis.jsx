@@ -1,36 +1,38 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"; // ✅ added
 import "./Analysis.css";
 import Navbar from "../components/Navbar";
-import MarsModel from "../components/MarsModel";
-import SpaceBackground from "../components/SpaceBackground";
+import EarthModel from "../components/EarthModel";
 
 export default function Analysis() {
+  // ✅ Pull real data from navigation state
   const { state } = useLocation();
   const navigate = useNavigate();
   const result = state?.result;
   const [compareWith, setCompareWith] = useState("");
 
+  // ✅ Fallback to placeholder if no backend data yet (useful during dev)
   const [planet] = useState({
-    name:    result?.name           ?? "Mars",
-    type:    result?.type           ?? "Planet",
-    summary: result?.summary        ?? "Mars, the fourth planet from the Sun, is a cold, rocky, desert world half the size of Earth. Named the 'Red Planet' for its rusty iron-rich soil, it fascinates scientists and space agencies alike as they explore its vast canyons, extinct volcanoes, and hunt for clues of ancient life.",
-    facts:   result?.interesting_facts ?? [
-      { title: "24h 37m",      body: "A Martian day is only slightly longer than an Earth day." },
+    name: result?.name ?? "Earth",
+    type: result?.type ?? "Planet",
+    summary: result?.summary ?? "Earth is the third planet from the Sun and the only known astronomical object to harbor life. Formed about 4.5 billion years ago, it is an ocean world with 71% of its surface covered by liquid water, which supports complex ecosystems and a stable atmosphere.",
+    facts: result?.interesting_facts ?? [
+      { title: "24h 37m", body: "A Martian day is only slightly longer than an Earth day." },
       { title: "Olympus Mons", body: "Home to the largest volcano in the solar system at 22km high." },
-      { title: "2 Moons",      body: "Phobos and Deimos are its two small, irregularly shaped moons." }
+      { title: "1 Moon", body: "Phobos and Deimos are its two small, irregularly shaped moons." }
     ],
     related: result?.recommendations ?? [
-      { name: "Earth",   image: "/earth.png" },
-      { name: "Sun",     image: "/sun.png" },
+      { name: "Mars", image: "/mars.png" },
+      { name: "Sun", image: "/sun.png" },
       { name: "Jupiter", image: "/jupiter.png" },
-      { name: "Saturn",  image: "/saturn.png" }
+      { name: "Saturn", image: "/saturn.png" }
     ]
   });
 
+
   return (
     <main className="analysisPage">
-      <SpaceBackground />
+      <div className="stars"></div>
       <Navbar />
 
       <div className="analysisContainer">
@@ -38,7 +40,7 @@ export default function Analysis() {
         {/* HERO */}
         <section className="heroCard">
           <div className="heroPlanet">
-            <MarsModel />
+            <EarthModel />
           </div>
           <div className="heroContent">
             <div className="titleRow">
@@ -55,9 +57,8 @@ export default function Analysis() {
           <div className="factsGrid">
             {planet.facts.map((fact, index) => (
               <div className="factCard" key={index}>
-                {/* ✅ handles both {title,body} objects and plain strings */}
-                <h3>{typeof fact === "string" ? "" : fact.title}</h3>
-                <p>{typeof fact === "string" ? fact : fact.body}</p>
+                <h3>{fact.title}</h3>
+                <p>{fact.body}</p>
               </div>
             ))}
           </div>
@@ -68,12 +69,9 @@ export default function Analysis() {
           <h2>Related Objects -</h2>
           <div className="relatedGrid">
             {planet.related.map((item) => (
-              <div
-                className="relatedCard"
-                key={item.name}
-                onClick={() => navigate(`/object/${item.name}`)} // ✅ fixed backticks
-                style={{ cursor: "pointer" }}
-              >
+              <div className="relatedCard" key={item.name}
+              onClick={() => navigate('/object/${item.name}')}
+              style={{cursor: "pointer"}}>
                 <img src={item.image} alt={item.name} />
                 <span>{item.name}</span>
               </div>
@@ -81,10 +79,10 @@ export default function Analysis() {
           </div>
         </section>
 
-        {/* EXPLORE MORE */}
         <section className="factsSection">
           <h2>Explore More -</h2>
           <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+
             <input
               type="text"
               placeholder={`Compare ${planet.name} with...`}
@@ -102,6 +100,7 @@ export default function Analysis() {
                 outline: "none"
               }}
             />
+
             <button
               onClick={() => navigate(`/compare/${planet.name}/${compareWith.trim()}`)}
               disabled={!compareWith.trim()}
@@ -119,6 +118,7 @@ export default function Analysis() {
             >
               Compare
             </button>
+
             <button
               onClick={() => navigate(`/timeline/${planet.name}`)}
               style={{
@@ -135,6 +135,7 @@ export default function Analysis() {
             >
               View Timeline →
             </button>
+
           </div>
         </section>
 
