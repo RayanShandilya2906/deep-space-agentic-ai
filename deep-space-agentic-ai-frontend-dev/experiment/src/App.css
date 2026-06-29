@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+
+/* ===================== */
+/* Upload Section */
+/* ===================== */
+
+.uploadSection {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 100;
+
+  color: white;
+}
+
+.uploadSection h1 {
+  font-size: 3rem;
+  margin-bottom: 45px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+  font-family: "Jersey 10", sans-serif;
+
+  text-align: center;
+
+  text-shadow: 0 0 15px cyan;
+}
+
+.uploadBox {
+  width: 760px;
+  height: 430px;
+
+  border: 2px dashed rgba(0,255,255,.45);
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.005);
+
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: -10px 0 0 0;
+}
+
+.uploadBox:hover {
+  border-color: cyan;
+
+  box-shadow:
+    0 0 20px rgba(0,255,255,.25),
+    0 0 45px rgba(0,255,255,.12);
+
+  transform: scale(1.015);
+}
+
+.uploadImage {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.uploadBox h2 {
+  font-size: 1.7rem;
+  margin: 0;
+}
+
+.uploadBox p {
+  opacity: .8;
+  margin: 0;
+}
+
+.uploadBox small {
+  opacity: .55;
+  font-size: .95rem;
+}
+
+.uploadBox input {
+  margin-top: 20px;
+  color: white;
+}
+
+.uploadBox button {
+  margin-top: 20px;
+
+  padding: 14px 40px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: cyan;
+  color: black;
+
+  font-size: 1rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.uploadBox button:hover {
+  transform: scale(1.08);
+
+  background: white;
+
+  box-shadow:
+    0 0 20px cyan,
+    0 0 40px cyan;
+}
+
+@keyframes panelFade {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+LOADING
+=========================== */
+
+/* ===========================
+LOADING PAGE
+=========================== */
+
+.loadingPage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  background: black;
+  z-index: 10;
+}
+
+/* HUD corner brackets */
+.scanCorner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.scanTL { top: 30px; left: 30px; border-top: 2px solid cyan; border-left: 2px solid cyan; }
+.scanTR { top: 30px; right: 30px; border-top: 2px solid cyan; border-right: 2px solid cyan; }
+.scanBL { bottom: 30px; left: 30px; border-bottom: 2px solid cyan; border-left: 2px solid cyan; }
+.scanBR { bottom: 30px; right: 30px; border-bottom: 2px solid cyan; border-right: 2px solid cyan; }
+
+/* center scan area */
+.scanCenter {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+/* pulsing rings */
+.scanRing {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.scanRing1 {
+  width: 220px;
+  height: 220px;
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+.scanRing2 {
+  width: 160px;
+  height: 160px;
+  animation: ringPulse 2s ease-in-out 0.4s infinite;
+}
+
+.scanRing3 {
+  width: 100px;
+  height: 100px;
+  animation: ringPulse 2s ease-in-out 0.8s infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* rotating arc */
+.scanArc {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top: 2px solid cyan;
+  border-right: 2px solid rgba(0, 255, 255, 0.3);
+  animation: spinArc 1.2s linear infinite;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes spinArc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* center icon */
+.scanIcon {
+  position: relative;
+  z-index: 2;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* main label */
+.scanLabel {
+  font-family: "Jersey 10", sans-serif;
+  font-size: 32px;
+  color: cyan;
+  letter-spacing: 6px;
+  margin: 0 0 8px;
+  text-shadow: 0 0 20px cyan;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* sub label */
+.scanSub {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: rgba(0, 255, 255, 0.5);
+  letter-spacing: 3px;
+  margin: 0 0 32px;
+  text-transform: uppercase;
+}
+
+/* progress bar */
+.scanStatusBar {
+  width: 320px;
+  height: 2px;
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.scanStatusFill {
+  height: 100%;
+  background: cyan;
+  box-shadow: 0 0 10px cyan;
+  animation: fillBar 3s ease-in-out infinite;
+}
+
+@keyframes fillBar {
+  0% { width: 0%; }
+  70% { width: 85%; }
+  90% { width: 92%; }
+  100% { width: 85%; }
+}
+
+.scanStatusText {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  color: rgba(0, 255, 255, 0.4);
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+
+
+
+
+/* ===========================
+NAVBAR
+=========================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;                        /* ✅ stretch full width */
+  z-index: 1000;
+
+  display: flex;                   /* ✅ flex row */
+  align-items: center;
+  justify-content: space-between;  /* ✅ logo left, links right */
+
+  padding: 12px 40px;              /* ✅ breathing room */
+  background: rgba(0, 0, 0, 0.4); /* ✅ subtle dark background */
+  backdrop-filter: blur(10px);     /* ✅ glassmorphism effect */
+}
+
+.navbarLogo{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+text-decoration:none;
+
+}
+
+.navbarImage{
+
+width:50px;
+height:50px;
+
+object-fit:contain;
+
+}
+
+.navbarLogo span{
+
+font-family:"Jersey 10";
+
+font-size:30px;
+
+letter-spacing:2px;
+
+color:white;
+
+text-shadow:
+0 0 8px cyan,
+0 0 18px cyan;
+
+transition:.3s;
+
+}
+
+.navbarLogo:hover span{
+
+color:cyan;
+
+}
+
+.navLinks {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.navLink {
+  font-family: "Montserrat";
+  font-size: 14px;
+  font-weight: 600;
+  color: #a0c4ff;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(21, 151, 255, 0.2);
+  background: rgba(21, 151, 255, 0.05);
+  box-shadow: 0 0 8px rgba(21, 151, 255, 0.08);
+}
+
+.navLink:hover {
+  opacity: 1;
+  color: #58c8ff;
+  border-color: rgba(21, 151, 255, 0.6);
+  background: rgba(21, 151, 255, 0.1);
+  box-shadow:
+    0 0 12px rgba(21, 151, 255, 0.3),
+    0 0 25px rgba(104, 32, 214, 0.15);
+  text-shadow: 0 0 8px rgba(88, 200, 255, 0.6);
+}
+
+.navLinkActive {
+  opacity: 1;
+  color: #58c8ff;
+  border-color: rgba(21, 151, 255, 0.7);
+  background: rgba(21, 151, 255, 0.12);
+  box-shadow:
+    0 0 12px rgba(21, 151, 255, 0.3),
+    0 0 25px rgba(104, 32, 214, 0.15);
+  text-shadow: 0 0 8px rgba(88, 200, 255, 0.6);
+  padding-bottom: 6px;        /* ✅ remove the border-bottom, use glow instead */
+  border-bottom: none;
+}

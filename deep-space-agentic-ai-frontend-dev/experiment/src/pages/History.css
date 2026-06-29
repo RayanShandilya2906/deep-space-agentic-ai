@@ -1,0 +1,66 @@
+@import "./Analysis.css";
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  margin-bottom: 20px;
+}
+
+.historyCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #0a1628 0%, #1A1D55 50%, #250B65 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: 0.25s;
+  border: 1px solid rgba(21, 151, 255, 0.3);
+  box-shadow: 0 0 40px rgba(21, 151, 255, 0.17);
+}
+
+.historyCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 151, 255, 0.6);
+  background: linear-gradient(135deg, #0d1f3c 0%, #1A1D55 50%, #30378C 100%);
+  box-shadow:
+    0 0 15px rgba(21, 151, 255, 0.3),
+    0 0 35px rgba(104, 32, 214, 0.2),
+    0 0 60px rgba(21, 151, 255, 0.1);
+}
+
+.historyCard img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.historyInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.historyInfo h3 {
+  margin: 0;
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.historyDate p {
+  margin: 0;
+  font-family: "Montserrat";
+  font-size: 15px;
+  color: #a0c4ff;
+}
+
+.historyArrow {
+  font-size: 20px;
+  color: #1597ff;
+  flex-shrink: 0;
+}

@@ -1,2 +1,3 @@
 ﻿.env
-node_modules/
+node_modules
+./deep-space-agentic-ai-frontend-dev\experiment\dist

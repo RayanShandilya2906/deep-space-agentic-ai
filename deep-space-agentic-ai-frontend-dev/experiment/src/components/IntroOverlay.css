@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+.bootSequence {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  background: rgba(0, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 28px 40px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+.bootSequence::before {
+  content: "ASTRO LENS // SYSTEM BOOT";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px;
+  color: rgba(0, 255, 255, 0.6);
+  background: black;
+  padding: 0 6px;
+  letter-spacing: 2px;
+}
+
+.line {
+  font-family: "Jersey 10", sans-serif;
+  font-size: 28px;
+  color: #60FFFA;
+  letter-spacing: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  opacity: 0;
+}
+
+.line1 {
+  animation: typein 1.8s steps(25, end) 0.2s forwards;
+}
+
+.line2 {
+  animation: typein 1.8s steps(25, end) 2.2s forwards;
+}
+
+.line3 {
+  animation: typein 2.2s steps(35, end) 4.2s forwards;
+}
+
+.line4 {
+  animation: typein 1.5s steps(20, end) 6.8s forwards;
+  color: #00ff88;   /* ✅ green = success */
+}
+
+@keyframes typein {
+  from {
+    opacity: 1;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.cursor {
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
