@@ -55,7 +55,6 @@ export default function Analysis() {
           <div className="factsGrid">
             {planet.facts.map((fact, index) => (
               <div className="factCard" key={index}>
-                {/* ✅ handles both {title,body} objects and plain strings */}
                 <h3>{typeof fact === "string" ? "" : fact.title}</h3>
                 <p>{typeof fact === "string" ? fact : fact.body}</p>
               </div>
@@ -71,7 +70,7 @@ export default function Analysis() {
               <div
                 className="relatedCard"
                 key={item.name}
-                onClick={() => navigate(`/object/${item.name}`)} // ✅ fixed backticks
+                onClick={() => navigate(`/object/${item.name}`)}
                 style={{ cursor: "pointer" }}
               >
                 <img src={item.image} alt={item.name} />
@@ -81,57 +80,27 @@ export default function Analysis() {
           </div>
         </section>
 
-        {/* EXPLORE MORE */}
+        {/* EXPLORE MORE ✅ no more inline styles */}
         <section className="factsSection">
           <h2>Explore More -</h2>
-          <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <div className="exploreRow">
             <input
               type="text"
               placeholder={`Compare ${planet.name} with...`}
               value={compareWith}
               onChange={(e) => setCompareWith(e.target.value)}
-              style={{
-                background: "#262626",
-                border: "1px solid #1597ff",
-                borderRadius: "8px",
-                padding: "10px 16px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontSize: "14px",
-                width: "260px",
-                outline: "none"
-              }}
+              className="exploreInput"
             />
             <button
               onClick={() => navigate(`/compare/${planet.name}/${compareWith.trim()}`)}
               disabled={!compareWith.trim()}
-              style={{
-                background: compareWith.trim() ? "#6820d6" : "#333",
-                border: "none",
-                borderRadius: "8px",
-                padding: "10px 24px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "14px",
-                cursor: compareWith.trim() ? "pointer" : "not-allowed"
-              }}
+              className="exploreBtn"
             >
               Compare
             </button>
             <button
               onClick={() => navigate(`/timeline/${planet.name}`)}
-              style={{
-                background: "#08183d",
-                border: "1px solid #1597ff",
-                borderRadius: "8px",
-                padding: "10px 24px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "14px",
-                cursor: "pointer"
-              }}
+              className="timelineBtn"
             >
               View Timeline →
             </button>

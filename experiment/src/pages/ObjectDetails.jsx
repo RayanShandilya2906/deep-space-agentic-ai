@@ -31,9 +31,9 @@ const PLANET_DATA = {
     type: "Planet",
     summary: "Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 71% of Earth's surface is covered with water, making it unique in the solar system.",
     interesting_facts: [
-      { title: "1 Moon",    body: "Earth has one natural satellite, the Moon, which stabilizes its axial tilt." },
+      { title: "1 Moon",         body: "Earth has one natural satellite, the Moon, which stabilizes its axial tilt." },
       { title: "Magnetic Field", body: "Earth's magnetic field protects us from harmful solar radiation." },
-      { title: "24 Hours",  body: "Earth takes 24 hours to complete one full rotation on its axis." }
+      { title: "24 Hours",       body: "Earth takes 24 hours to complete one full rotation on its axis." }
     ],
     recommendations: [
       { name: "Mars",    image: "/mars.png" },
@@ -54,7 +54,7 @@ const PLANET_DATA = {
       { name: "Mars",   image: "/mars.png" },
       { name: "Saturn", image: "/saturn.png" },
       { name: "Earth",  image: "/earth.png" },
-      { name: "Phobos",    image: "/phobos.png" }
+      { name: "Phobos", image: "/phobos.png" }
     ]
   },
   Saturn: {
@@ -76,9 +76,9 @@ const PLANET_DATA = {
     type: "Celestial Object",
     summary: "Phobos is the larger and innermost of Mars' two moons. It is a tiny, heavily cratered, potato-shaped object measuring about 27 × 22 × 18 kilometers. Because it orbits extremely close to the Red Planet, it completes a full revolution in just 7 hours and 39 minutes.",
     interesting_facts: [
-      { title: "Unique Orbit", body: "Rises in the west and sets in the east twice a day from the Martian surface." },
-      { title: "The Stickney Crater",       body: "An impact so massive it nearly shattered the entire moon" },
-      { title: "Deep Dust",   body: "Covered in a thick layer of powdery, asteroid-like dust, often called regolith" }
+      { title: "Unique Orbit",         body: "Rises in the west and sets in the east twice a day from the Martian surface." },
+      { title: "The Stickney Crater",  body: "An impact so massive it nearly shattered the entire moon." },
+      { title: "Deep Dust",            body: "Covered in a thick layer of powdery, asteroid-like dust, often called regolith." }
     ],
     recommendations: [
       { name: "Mars",   image: "/mars.png" },
@@ -87,13 +87,13 @@ const PLANET_DATA = {
       { name: "Sun",    image: "/sun.png" }
     ]
   },
-    Sun: {
+  Sun: {
     type: "Star",
     summary: "The Sun is the star at the center of our solar system. It is a massive, hot ball of glowing hydrogen and helium that sustains life on Earth by providing essential heat and light.",
     interesting_facts: [
-      { title: "Radius", body: "About 695,700 km, which is roughly 109 times Earth's radius." },
-      { title: "Temperature",       body: "The hottest part reaches temperatures of around 15 million°C (27 million °F)." },
-      { title: "Composition",   body: "Made almost entirely of hydrogen and helium gas bound together by gravity." }
+      { title: "Radius",      body: "About 695,700 km, which is roughly 109 times Earth's radius." },
+      { title: "Temperature", body: "The hottest part reaches temperatures of around 15 million°C (27 million °F)." },
+      { title: "Composition", body: "Made almost entirely of hydrogen and helium gas bound together by gravity." }
     ],
     recommendations: [
       { name: "Mars",   image: "/mars.png" },
@@ -116,8 +116,8 @@ export default function ObjectDetails() {
     async function fetchObject() {
       try {
         setLoading(true);
-        // const data = await getObjectDetails(name); // uncomment when backend ready
-        const preset = PLANET_DATA[name];             // ✅ use preset if available
+        // const data = await getObjectDetails(name);
+        const preset = PLANET_DATA[name];
         const data = preset ? { name, ...preset } : {
           name: name,
           type: "Celestial Object",
@@ -154,10 +154,21 @@ export default function ObjectDetails() {
     mars:    MarsModel,
     jupiter: JupiterModel,
     saturn:  SaturnModel,
-    phobos: PhobosModel,
-    sun: SunModel,
+    phobos:  PhobosModel,
+    sun:     SunModel,
   };
-  const Model = planetModels[name?.toLowerCase()] || EarthModel;
+
+  const ModelComponent = planetModels[name?.toLowerCase()];
+  const Model = ModelComponent
+    ? ModelComponent
+    : () => (
+        <img
+          src={`/${name?.toLowerCase()}.png`}
+          alt={name}
+          style={{ width: "100px", height: "100px", objectFit: "contain", borderRadius: "50%" }} // ✅ fixed: "contain" not contain
+          onError={(e) => { e.target.src = "/andromeda.png"; }}
+        />
+      );
 
   if (loading) return (
     <main className="analysisPage">
@@ -231,57 +242,27 @@ export default function ObjectDetails() {
           </div>
         </section>
 
-        {/* COMPARE + TIMELINE */}
+        {/* COMPARE + TIMELINE ✅ no inline styles */}
         <section className="factsSection">
           <h2>Compare -</h2>
-          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <div className="exploreRow">
             <input
               type="text"
               placeholder={`Compare ${name} with...`}
               value={compareWith}
               onChange={(e) => setCompareWith(e.target.value)}
-              style={{
-                background: "#262626",
-                border: "1px solid #1597ff",
-                borderRadius: "8px",
-                padding: "10px 16px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontSize: "14px",
-                width: "260px",
-                outline: "none"
-              }}
+              className="exploreInput"
             />
             <button
               onClick={handleCompare}
               disabled={!compareWith.trim()}
-              style={{
-                background: compareWith.trim() ? "#6820d6" : "#333",
-                border: "none",
-                borderRadius: "8px",
-                padding: "10px 24px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "14px",
-                cursor: compareWith.trim() ? "pointer" : "not-allowed"
-              }}
+              className="exploreBtn"
             >
               Compare
             </button>
             <button
               onClick={() => navigate(`/timeline/${name}`)}
-              style={{
-                background: "#08183d",
-                border: "1px solid #1597ff",
-                borderRadius: "8px",
-                padding: "10px 24px",
-                color: "white",
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                fontSize: "14px",
-                cursor: "pointer"
-              }}
+              className="timelineBtn"
             >
               View Timeline →
             </button>

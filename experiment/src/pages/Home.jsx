@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import { analyzeImage } from "../services/api";
 import "./HomeIntro.css";
 import IntroOverlay from "../components/IntroOverlay";
+import SpaceBackground from "../components/SpaceBackground";
 
 function Home() {
   const [introStage, setIntroStage] = useState("title");
@@ -19,21 +20,24 @@ function Home() {
 }, []);
 
   // ✅ ONE clean handleAnalyze — no duplicate
-  const handleAnalyze = async () => {
-    if (!file)
-      alert("Please upload a file first");
-      return;
-    try {
-      setLoading(true);
-      const result = await analyzeImage(file);
-      navigate("/analysis", { state: { result, file } });
-    } catch (error) {
-      console.error("Analysis error:", error);
-      alert("Analysis failed: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleAnalyze = async () => {
+  if (!file) {
+    alert("Please upload a file first");
+    return;
+  }
+  try {
+    setLoading(true);
+    navigate("/loading"); // ✅ go to loading page immediately
+    const result = await analyzeImage(file);
+    navigate("/analysis", { state: { result, file } });
+  } catch (error) {
+    console.error("Analysis error:", error);
+    navigate("/"); // ✅ go back home on error
+    alert("Analysis failed: " + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div style={{ width: "100vw", height: "100vh", background: "black", position: "relative", overflow: "hidden" }}>
@@ -50,7 +54,7 @@ function Home() {
       {/* Upload Screen */}
       {introStage === "upload" && (
         <>
-          {introStage !== "upload" && <Navbar />}
+          
           <div className="uploadSection">
             <h1>Explore the Space with AI</h1>
             <div className="uploadBox">

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTimeline } from "../services/api";
 import Navbar from "../components/Navbar";
-import "./Timeline.css";
 import SpaceBackground from "../components/SpaceBackground";
+import "./Timeline.css";
 
 export default function Timeline() {
   const { object } = useParams();
@@ -11,6 +11,7 @@ export default function Timeline() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fullscreen, setFullscreen] = useState(false); // ✅ new
 
   useEffect(() => {
     async function fetchTimeline() {
@@ -39,6 +40,13 @@ export default function Timeline() {
     fetchTimeline();
   }, [object]);
 
+  // ✅ close fullscreen on Escape key
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") setFullscreen(false); };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
+
   if (loading) return (
     <main className="analysisPage">
       <SpaceBackground />
@@ -51,7 +59,7 @@ export default function Timeline() {
 
   if (error) return (
     <main className="analysisPage">
-      <div className="stars"></div>
+      <SpaceBackground />
       <Navbar />
       <div className="analysisContainer" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
         <p style={{ fontFamily: "Montserrat", fontSize: "18px", color: "#ff4444" }}>Error: {error}</p>
@@ -59,10 +67,46 @@ export default function Timeline() {
     </main>
   );
 
+  const TimelineContent = () => (
+    <div className="timelineTrack">
+      {data?.timeline?.map((item, index) => (
+        <div className={`timelineItem ${index % 2 === 0 ? "" : "timelineRight"}`} key={index}>
+          <div className="timelineDot" />
+          <div className="timelineCard">
+            <h3 className="timelineYear">{item.year}</h3>
+            <p className="timelineEvent">{item.event}</p>
+          </div>
+        </div>
+      ))}
+      <div className="timelineLine" />
+    </div>
+  );
+
   return (
     <main className="analysisPage">
-      <div className="stars"></div>
+      <SpaceBackground />
       <Navbar />
+
+      {/* ✅ FULLSCREEN MODAL */}
+      {fullscreen && (
+        <div className="timelineModal">
+            <SpaceBackground />
+          <div className="timelineModalHeader">
+            <h2 style={{ fontFamily: "Jersey 10", fontSize: "28px", letterSpacing: "2px", margin: 0 }}>
+              {object?.toUpperCase()} TIMELINE
+            </h2>
+            <button
+              onClick={() => setFullscreen(false)}
+              className="timelineCloseBtn"
+            >
+              ✕ Close
+            </button>
+          </div>
+          <div className="timelineModalBody">
+            <TimelineContent />
+          </div>
+        </div>
+      )}
 
       <div className="analysisContainer">
 
@@ -81,26 +125,20 @@ export default function Timeline() {
 
         {/* TIMELINE */}
         <section className="factsSection">
-          <h2>Exploration History -</h2>
-
-          <div className="timelineTrack">
-            {data?.timeline?.map((item, index) => (
-              <div
-                className={`timelineItem ${index % 2 === 0 ? "timelineLeft" : "timelineRight"}`}
-                key={index}
-              >
-                <div className="timelineDot" />
-                <div className="timelineCard">
-                  <h3 className="timelineYear">{item.year}</h3>
-                  <p className="timelineEvent">{item.event}</p>
-                </div>
-              </div>
-            ))}
-            <div className="timelineLine" />
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h2>Exploration History -</h2>
+            <button
+              onClick={() => setFullscreen(true)}
+              className="timelineExpandBtn"
+            >
+              ⛶ View Fullscreen
+            </button>
+          </div>
+          <div className="timelineScroll">
+            <TimelineContent />
           </div>
         </section>
 
-        {/* BACK BUTTON */}
         <button
           onClick={() => navigate(`/object/${object}`)}
           style={{

@@ -25,42 +25,89 @@ function HeroPlanet() {
 }
 
 function IntroText({ onComplete }) {
-  const ref = useRef();
+  const groupRef = useRef();
   const started = useRef(false);
+  const glitching = useRef(false);
+  const glitchX = useRef(0);
+  const glitchCount = useRef(0);
+  const glitchFrame = useRef(0);
 
   useFrame(() => {
-    if (!ref.current?.position) return;
+    if (!groupRef.current) return;
 
-    if (ref.current.position.y < 0.4) {
-      ref.current.position.y += 0.008;
-      return;
+    // ✅ rise up
+    if (groupRef.current.position.y < 0.4) {
+      groupRef.current.position.y += 0.008;
     }
 
-    if (!started.current) {
+    // ✅ trigger onComplete once risen
+    if (groupRef.current.position.y >= 0.4 && !started.current) {
       started.current = true;
+      setTimeout(() => onComplete?.(), 1000);
+    }
 
-      // ✅ HOLD FOR 1 SECOND BEFORE TRIGGER
-      setTimeout(() => {
-        onComplete?.();
-      }, 1000);
+    // ✅ glitch logic — runs every few frames
+    glitchFrame.current++;
+    if (glitchFrame.current % 4 === 0 && glitchCount.current < 3) {
+      if (!glitching.current && Math.random() < 0.08) {
+        glitching.current = true;
+      }
+    }
+
+    if (glitching.current) {
+      glitchX.current = (Math.random() - 0.5) * 0.2;
+      groupRef.current.position.x = glitchX.current;
+      if (Math.random() < 0.15) {
+        glitching.current = false;
+        glitchX.current = 0;
+        groupRef.current.position.x = 0;
+        glitchCount.current++;
+      }
     }
   });
 
   return (
-    <Text
-      ref={ref}
-      position={[0, -4.5, 0]}
-      fontSize={0.9}
-      font="/fonts/KdamThmorPro-Regular.ttf"
-      color="#E7EDF0"
-      anchorX="center"
-      anchorY="middle"
-    >
-      ASTRO LENS
-    </Text>
+    <group ref={groupRef} position={[0, -4.5, 0]}>
+      {/* cyan ghost */}
+      <Text
+        position={[-0.04, 0, -0.01]}
+        fontSize={1}
+        font="/fonts/Goldman-Bold.ttf"
+        color="#00ffff"
+        anchorX="center"
+        anchorY="middle"
+        fillOpacity={0.3}
+      >
+        ASTRO LENS
+      </Text>
+
+      {/* purple ghost */}
+      <Text
+        position={[0.02, 0, -0.01]}
+        fontSize={1}
+        font="/fonts/Goldman-Bold.ttf"
+        color="#aa00ff"
+        anchorX="center"
+        anchorY="middle"
+        fillOpacity={0.5}
+      >
+        ASTRO LENS
+      </Text>
+
+      {/* main text */}
+      <Text
+        position={[0, 0, 0]}
+        fontSize={1}
+        font="/fonts/Goldman-Bold.ttf"
+        color="#838B9E"
+        anchorX="center"
+        anchorY="middle"
+      >
+        ASTRO LENS
+      </Text>
+    </group>
   );
 }
-
 
 function MovingStars() {
   const starsRef = useRef();

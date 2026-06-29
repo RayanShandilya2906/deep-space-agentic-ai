@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 
 /* ===================== */
@@ -134,100 +134,156 @@
 LOADING
 =========================== */
 
-.loadingLogo{
-
-position:absolute;
-
-top:30px;
-
-left:35px;
-
-font-family:"Jersey 10";
-
-font-size:26px;
-
-color:white;
-
-letter-spacing:2px;
-
-}
+/* ===========================
+LOADING PAGE
+=========================== */
 
 .loadingPage {
   position: fixed;
   inset: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   overflow: hidden;
-
+  background: black;
   z-index: 10;
 }
 
-.scanText{
-
-font-size:56px;
-
-font-family:"Jersey 10";
-
-color:white;
-
-letter-spacing:3px;
-
-z-index:2;
-
-animation:pulse 1s infinite;
-
+/* HUD corner brackets */
+.scanCorner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
 }
 
-@keyframes pulse{
+.scanTL { top: 30px; left: 30px; border-top: 2px solid cyan; border-left: 2px solid cyan; }
+.scanTR { top: 30px; right: 30px; border-top: 2px solid cyan; border-right: 2px solid cyan; }
+.scanBL { bottom: 30px; left: 30px; border-bottom: 2px solid cyan; border-left: 2px solid cyan; }
+.scanBR { bottom: 30px; right: 30px; border-bottom: 2px solid cyan; border-right: 2px solid cyan; }
 
-0%{
-
-opacity:.3;
-
+/* center scan area */
+.scanCenter {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
-50%{
-
-opacity:1;
-
+/* pulsing rings */
+.scanRing {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
-100%{
-
-opacity:.3;
-
+.scanRing1 {
+  width: 220px;
+  height: 220px;
+  animation: ringPulse 2s ease-in-out infinite;
 }
 
+.scanRing2 {
+  width: 160px;
+  height: 160px;
+  animation: ringPulse 2s ease-in-out 0.4s infinite;
 }
 
-.scanCircle{
-    position:absolute;
-
-    width:250px;
-    height:250px;
-
-    border-radius:50%;
-    border:2px solid cyan;
-
-    animation:loadingPulse 2s infinite;
-
-    opacity:.4;
+.scanRing3 {
+  width: 100px;
+  height: 100px;
+  animation: ringPulse 2s ease-in-out 0.8s infinite;
 }
 
-@keyframes loadingPulse{
-    0%{
-        transform:scale(.5);
-        opacity:1;
-    }
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
 
-    100%{
-        transform:scale(2);
-        opacity:0;
-    }
+/* rotating arc */
+.scanArc {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top: 2px solid cyan;
+  border-right: 2px solid rgba(0, 255, 255, 0.3);
+  animation: spinArc 1.2s linear infinite;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes spinArc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* center icon */
+.scanIcon {
+  position: relative;
+  z-index: 2;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* main label */
+.scanLabel {
+  font-family: "Jersey 10", sans-serif;
+  font-size: 32px;
+  color: cyan;
+  letter-spacing: 6px;
+  margin: 0 0 8px;
+  text-shadow: 0 0 20px cyan;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* sub label */
+.scanSub {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: rgba(0, 255, 255, 0.5);
+  letter-spacing: 3px;
+  margin: 0 0 32px;
+  text-transform: uppercase;
+}
+
+/* progress bar */
+.scanStatusBar {
+  width: 320px;
+  height: 2px;
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.scanStatusFill {
+  height: 100%;
+  background: cyan;
+  box-shadow: 0 0 10px cyan;
+  animation: fillBar 3s ease-in-out infinite;
+}
+
+@keyframes fillBar {
+  0% { width: 0%; }
+  70% { width: 85%; }
+  90% { width: 92%; }
+  100% { width: 85%; }
+}
+
+.scanStatusText {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  color: rgba(0, 255, 255, 0.4);
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 

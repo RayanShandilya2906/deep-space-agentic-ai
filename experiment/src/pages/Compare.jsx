@@ -69,58 +69,71 @@ export default function Compare() {
       <div className="analysisContainer">
 
         {/* HEADER */}
-        <section className="heroCard" style={{ justifyContent: "center" }}>
-          <div className="heroContent" style={{ textAlign: "center" }}>
-            <div className="titleRow" style={{ justifyContent: "center" }}>
-              <h1>{objectA.toUpperCase()}</h1>
-              <span className="planetBadge">VS</span>
-              <h1>{objectB.toUpperCase()}</h1>
-            </div>
+        <section className="compareHero">
+          <div className="compareHeroSide">
+            <img
+              src={`/${objectA.toLowerCase()}.png`}
+              alt={objectA}
+              className="compareHeroImg"
+              onError={(e) => { e.target.style.display = "none"; }}
+            />
+            <h1 className="compareHeroName">{objectA.toUpperCase()}</h1>
+          </div>
+
+          <div className="compareVsBadge">VS</div>
+
+          <div className="compareHeroSide">
+            <img
+              src={`/${objectB.toLowerCase()}.png`}
+              alt={objectB}
+              className="compareHeroImg"
+              onError={(e) => { e.target.style.display = "none"; }}
+            />
+            <h1 className="compareHeroName">{objectB.toUpperCase()}</h1>
           </div>
         </section>
 
-        {/* TWO COLUMN TABLE */}
+        {/* COMPARE GRID */}
         <section className="factsSection">
-          <div className="compareGrid">
+          <div className="compareScroll">
+            <div className="compareGrid">
 
-            {/* SIMILARITIES */}
-            <div className="compareColumn">
-              <h2>Similarities -</h2>
-              {data?.similarities?.map((item, index) => (
-                <div className="factCard" key={index} style={{ height: "auto", marginBottom: "16px" }}>
-                  <p>{item}</p>
+              {/* SIMILARITIES */}
+              <div className="compareColumn">
+                <div className="compareColHeader simHeader">
+                  <span className="compareColIcon">✦</span>
+                  <h2>Similarities</h2>
                 </div>
-              ))}
-            </div>
+                {data?.similarities?.map((item, index) => (
+                  <div className="compareCard simCard" key={index}>
+                    <span className="compareCardIcon">◈</span>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
 
-            {/* DIFFERENCES */}
-            <div className="compareColumn">
-              <h2>Differences -</h2>
-              {data?.differences?.map((item, index) => (
-                <div className="factCard" key={index} style={{ height: "auto", marginBottom: "16px" }}>
-                  <p>{item}</p>
+              {/* DIFFERENCES */}
+              <div className="compareColumn">
+                <div className="compareColHeader diffHeader">
+                  <span className="compareColIcon">⟐</span>
+                  <h2>Differences</h2>
                 </div>
-              ))}
-            </div>
+                {data?.differences?.map((item, index) => (
+                  <div className="compareCard diffCard" key={index}>
+                    <span className="compareCardIcon">◈</span>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
 
+            </div>
           </div>
         </section>
 
         {/* BACK BUTTON */}
         <button
           onClick={() => navigate(`/object/${objectA}`)}
-          style={{
-            background: "#6820d6",
-            border: "none",
-            borderRadius: "8px",
-            padding: "10px 24px",
-            color: "white",
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            fontSize: "14px",
-            cursor: "pointer",
-            marginBottom: "40px"
-          }}
+          className="compareBackBtn"
         >
           ← Back to {objectA}
         </button>
