@@ -4,8 +4,10 @@ export default function Navbar() {
   const location = useLocation();
 
   const navLinks = [
-    { path: "/history",   label: "History" },
-    { path: "/dashboard", label: "Dashboard" },
+    { path: "/", label: "Dashboard", match: ["/", "/dashboard"] },
+    { path: "/analysis", label: "Analysis" },
+    { path: "/history", label: "History" },
+    { path: "/compare", label: "Comparison", matchPrefix: "/compare" },
   ];
 
   return (
@@ -18,15 +20,22 @@ export default function Navbar() {
       </Link>
 
       <div className="navLinks">
-        {navLinks.map((link) => (
-          <Link
-            key={link.path}
-            to={link.path}
-            className={`navLink ${location.pathname === link.path ? "navLinkActive" : ""}`}
-          >
-            {link.label}
-          </Link>
-        ))}
+        {navLinks.map((link) => {
+          const isActive =
+            link.match?.includes(location.pathname) ||
+            location.pathname === link.path ||
+            (link.matchPrefix && location.pathname.startsWith(link.matchPrefix));
+
+          return (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`navLink ${isActive ? "navLinkActive" : ""}`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
 
     </div>

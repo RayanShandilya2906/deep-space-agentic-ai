@@ -316,6 +316,49 @@
   gap: 12px;
 }
 
+.analysisUploadPage {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.analysisUploadPage canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.analysisUploadSection {
+  padding-top: 72px;
+}
+
+.analysisCompactUpload {
+  position: relative;
+  min-height: 560px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.analysisCompactUpload .uploadSection {
+  position: relative;
+  inset: auto;
+  min-height: 560px;
+}
+
+.analysisCompactUpload .uploadBox {
+  width: min(760px, 100%);
+}
+
+.analysisActionState {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 980px) {
   .factsGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -353,4 +396,3 @@
     align-items: flex-start;
   }
 }
-

@@ -2,47 +2,43 @@ const Analysis =
   require("../models/Analysis");
 const { analyzeSpaceImage } = require("../services/geminiService");
 const {
-  getNASAImage
+  enrichRecommendations,
+  getObjectImage
 } = require(
-  "../services/nasaService"
+  "../services/recommendationService"
 );
+const {
+  parseGeminiJson
+} = require("../utils/geminiJson");
 
 exports.analyzeImage = async (req, res) => {
   try {
     const aiResponse = await analyzeSpaceImage(req.file.path);
 
-    const cleaned = aiResponse
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    const parsed = parseGeminiJson(aiResponse);
+    const objectImage =
+      await getObjectImage(parsed.name);
 
-    const parsed = JSON.parse(cleaned);
+    const enrichedRecommendations =
+      await enrichRecommendations(
+        parsed.recommendations
+      );
+
     await Analysis.create({
       objectName: parsed.name,
       type: parsed.type,
       summary: parsed.summary,
+      objectImage,
       recommendations:
-        parsed.recommendations,
-      imagePath: req.file.path
+        enrichedRecommendations,
+      interestingFacts:
+        parsed.interesting_facts || parsed.interestingFacts || []
     });
-    const enrichedRecommendations =
-      await Promise.all(
-
-        parsed.recommendations.map(
-          async (name) => ({
-
-            name,
-
-            image:
-              await getNASAImage(name)
-
-          })
-        )
-
-      );
 
     parsed.recommendations =
       enrichedRecommendations;
+    parsed.objectImage =
+      objectImage;
 
     res.json({
       success: true,

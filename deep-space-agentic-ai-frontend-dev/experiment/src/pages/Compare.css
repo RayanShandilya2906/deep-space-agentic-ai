@@ -181,3 +181,38 @@
   background: #7c30f0;
   box-shadow: 0 0 15px rgba(104, 32, 214, 0.4);
 }
+
+.compareSelectorPanel {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: rgba(10, 22, 40, 0.7);
+  border: 1px solid rgba(21, 151, 255, 0.25);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 0 30px rgba(21, 151, 255, 0.15);
+}
+
+.compareInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compareInputGroup label {
+  font-family: "Montserrat";
+  font-size: 13px;
+  font-weight: 600;
+  color: #a0c4ff;
+}
+
+@media (max-width: 760px) {
+  .compareGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .compareHero {
+    padding: 18px;
+  }
+}

@@ -4,8 +4,14 @@ const analysisSchema = new mongoose.Schema({
   objectName: String,
   type: String,
   summary: String,
-  recommendations: [String],
-  imagePath: String,
+  objectImage: String,
+  recommendations: [
+    {
+      name: String,
+      image: String,
+      fact: String
+    }
+  ],
   interestingFacts: [String],
   createdAt: {
     type: Date,

@@ -1,21 +1,30 @@
 const { getObjectDetails } = require("../services/geminiService");
-const imageMap = require("../utils/imageMap");
+const {
+  enrichRecommendations,
+  getObjectImage
+} = require("../services/recommendationService");
+const {
+  parseGeminiJson
+} = require("../utils/geminiJson");
+
 exports.getObjectInfo = async (req, res) => {
   try {
     const aiResponse = await getObjectDetails(req.params.name);
 
-    const cleaned = aiResponse
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    const parsed = parseGeminiJson(aiResponse);
+    const objectImage =
+      await getObjectImage(parsed.name || req.params.name);
 
-    const parsed = JSON.parse(cleaned);
+    const recommendations =
+      await enrichRecommendations(parsed.recommendations);
 
     res.json({
       success: true,
       data: {
         ...parsed,
-        imageUrl: imageMap[parsed.name] || "/images/default.jpg"
+        objectImage,
+        imageUrl: objectImage,
+        recommendations
       },
     });
   } catch (error) {

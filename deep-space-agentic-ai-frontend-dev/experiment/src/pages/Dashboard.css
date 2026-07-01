@@ -57,3 +57,66 @@
   font-family: "Montserrat";
   color: white;
 }
+
+.dashboardHome {
+  padding-top: 72px;
+}
+
+.dashboardHero {
+  min-height: 210px;
+}
+
+.dashboardStartBtn {
+  margin-top: 18px;
+  background: #6820d6;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: white;
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 0 15px rgba(104, 32, 214, 0.3);
+}
+
+.dashboardStartBtn:hover {
+  background: #7c30f0;
+  box-shadow: 0 0 18px rgba(104, 32, 214, 0.5);
+  transform: translateY(-2px);
+}
+
+.dashboardFeatureGrid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.dashboardFeatureGrid .factCard {
+  min-height: 150px;
+}
+
+.dashboardHistoryInfo {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.dashboardHistoryInfo p {
+  margin: 0;
+  font-family: "Montserrat";
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (max-width: 1120px) {
+  .dashboardFeatureGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboardFeatureGrid {
+    grid-template-columns: 1fr;
+  }
+}

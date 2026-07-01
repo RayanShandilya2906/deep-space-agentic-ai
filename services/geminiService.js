@@ -43,6 +43,7 @@ Return ONLY valid JSON:
   "recommendations": [
     "",
     "",
+    "",
     ""
   ]
 }
@@ -51,7 +52,7 @@ Rules:
 - Return valid JSON only.
 - No markdown.
 - Summary under 50 words.
-- Exactly 3 related celestial objects.
+- Exactly 4 related celestial objects.
 `,
   ]);
 
@@ -85,6 +86,7 @@ Return ONLY valid JSON:
   "recommendations":[
     "",
     "",
+    "",
     ""
   ]
 }
@@ -93,10 +95,30 @@ Rules:
 - Return valid JSON only.
 - No markdown.
 - Summary under 50 words.
-- Exactly 3 related celestial objects.
+- Exactly 4 related celestial objects.
 `);
 
   return result.response.text();
+}
+
+async function getAstronomyFact(objectName) {
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash",
+  });
+
+  const result = await model.generateContent(`
+You are an astronomy expert.
+
+Write one short, accurate astronomy fact about "${objectName}".
+
+Rules:
+- Return plain text only.
+- One sentence only.
+- Under 25 words.
+- No markdown.
+`);
+
+  return result.response.text().trim().replace(/^"|"$/g, "");
 }
 
 async function compareObjects(
@@ -137,7 +159,6 @@ Rules:
 - No markdown.
 - Summary under 50 words.
 - Exactly 3 interesting facts.
-- Exactly 3 related celestial objects.
 
 `);
 
@@ -186,6 +207,7 @@ Rules:
 module.exports = {
   analyzeSpaceImage,
   getObjectDetails,
+  getAstronomyFact,
   compareObjects,
   getTimeline
 };

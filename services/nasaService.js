@@ -3,6 +3,9 @@ const axios = require("axios");
 async function getNASAImage(query) {
 
   try {
+    if (!query) {
+      return null;
+    }
 
     const response =
       await axios.get(
@@ -22,7 +25,13 @@ async function getNASAImage(query) {
       return null;
     }
 
-    return items[0].links[0].href;
+    const imageLink =
+      items.find((item) =>
+        Array.isArray(item.links) &&
+        item.links[0]?.href
+      )?.links[0]?.href;
+
+    return imageLink || null;
 
   } catch (error) {
 

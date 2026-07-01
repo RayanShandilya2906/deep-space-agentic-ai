@@ -13,10 +13,12 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/intro" element={<Home />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/analysis" element={<Analysis />} />
         <Route path="/object/:name" element={<ObjectDetails />} />
+        <Route path="/compare" element={<Compare />} />
         <Route path="/compare/:objectA/:objectB" element={<Compare />} />
         <Route path="/timeline/:object" element={<Timeline />} />
         <Route path="/history" element={<History />} />
