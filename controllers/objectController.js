@@ -1,4 +1,4 @@
-const { getObjectDetails } = require("../services/geminiService");
+const Analysis = require("../models/Analysis"); 
 const {
   enrichRecommendations,
   getObjectImage
@@ -9,9 +9,13 @@ const {
 
 exports.getObjectInfo = async (req, res) => {
   try {
-    const aiResponse = await getObjectDetails(req.params.name);
+    const record =
+await Analysis.findOne({
+    objectName: objectName
+})
+.sort({createdAt:-1});
 
-    const parsed = parseGeminiJson(aiResponse);
+    const parsed = parseGeminiJson(record.aiResponse);
     const objectImage =
       await getObjectImage(parsed.name || req.params.name);
 
@@ -19,14 +23,12 @@ exports.getObjectInfo = async (req, res) => {
       await enrichRecommendations(parsed.recommendations);
 
     res.json({
-      success: true,
-      data: {
-        ...parsed,
-        objectImage,
-        imageUrl: objectImage,
-        recommendations
-      },
-    });
+
+    success:true,
+
+    data:record
+
+});
   } catch (error) {
     console.error(error);
 

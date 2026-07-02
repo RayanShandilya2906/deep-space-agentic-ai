@@ -1,4 +1,3 @@
-const { getAstronomyFact } = require("./geminiService");
 const { getNASAImage } = require("./nasaService");
 
 function normalizeRecommendationName(recommendation) {
@@ -25,23 +24,11 @@ async function enrichRecommendation(recommendation) {
     return null;
   }
 
-  const [image, fact] =
-    await Promise.all([
-      getObjectImage(name),
-      getAstronomyFact(name).catch((error) => {
-        console.error(
-          "Gemini fact error:",
-          error.message
-        );
-
-        return `${name} is a celestial object studied by astronomers to understand the structure and evolution of space.`;
-      })
-    ]);
+  const image = await getObjectImage(name);
 
   return {
     name,
     image,
-    fact
   };
 }
 
