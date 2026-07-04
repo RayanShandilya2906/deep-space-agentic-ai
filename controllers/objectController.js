@@ -3,32 +3,31 @@ const {
   enrichRecommendations,
   getObjectImage
 } = require("../services/recommendationService");
-const {
-  parseGeminiJson
-} = require("../utils/geminiJson");
 
 exports.getObjectInfo = async (req, res) => {
   try {
-    const record =
-await Analysis.findOne({
-    objectName: objectName
-})
-.sort({createdAt:-1});
+    const record = await Analysis.findOne({
+    objectName: req.params.name
+});
 
-    const parsed = parseGeminiJson(record.aiResponse);
     const objectImage =
-      await getObjectImage(parsed.name || req.params.name);
+      await getObjectImage(record.objectName);
 
     const recommendations =
-      await enrichRecommendations(parsed.recommendations);
+      await enrichRecommendations(record.recommendations);
 
     res.json({
+    success: true,
 
-    success:true,
-
-    data:record
-
-});
+    data: {
+        name: record.objectName,
+        type: record.type,
+        summary: record.summary,
+        objectImage: record.objectImage,
+        interesting_facts: record.interestingFacts,
+        recommendations: record.recommendations
+    }
+}); 
   } catch (error) {
     console.error(error);
 
